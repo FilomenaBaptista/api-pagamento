@@ -11,11 +11,11 @@ class CardController extends Controller
 
     public function store(Request $request)
     {
- 
+
         $request->validate([
             'card_number' => 'required|string',
             'card_expiry' => 'required|string',
-            'card_cvc' => 'required|string',
+            'cvv' => 'required|string',
         ]);
 
         // Simulando a tokenização do cartão
@@ -26,9 +26,28 @@ class CardController extends Controller
             'token' => $token,
             'card_number' => $request->card_number, // Nunca armazene dados reais de cartões
             'card_expiry' => $request->card_expiry,
+            'cvv' => $request->cvv,
         ]);
 
         return response()->json($card, 201);
+    }
+    public function getCard(Request $request)
+    {
+
+        $request->validate([
+            'card_number' => 'required|string',
+            'card_expiry' => 'required|string',
+            'cvv' => 'required|string',
+        ]);
+
+        $card = new Card();
+        $card = $card->getCard(
+            $request->card_number,
+            $request->cvv,
+            $request->card_expiry
+        );
+
+        return response()->json($card, 200);
     }
 
     // Verificar saldo do cartão

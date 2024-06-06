@@ -26,4 +26,5 @@ Route::get('/payments', [PaymentController::class, 'listPayments']);
 Route::put('/payments/{transaction_id}', [PaymentController::class, 'updatePaymentStatus']);
 Route::post('/payments/notification', [PaymentController::class, 'paymentNotification']);
 Route::post('/cards', [CardController::class, 'store']);
+Route::post('/getCard', [CardController::class, 'getCard'])->name('getCard');
 Route::post('/cards/check-balance', [CardController::class, 'checkBalance']);

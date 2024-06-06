@@ -14,7 +14,9 @@ return new class extends Migration
         Schema::create('cards', function (Blueprint $table) {
             $table->id();
             $table->string('token')->unique();
-            $table->string('card_number');
+            $table->string('card_number')->unique();
+            $table->string('cvv', 4);
+            $table->decimal('amount', 10, 2)->default(0);;
             $table->string('card_expiry');
             $table->timestamps();
         });
